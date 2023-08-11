@@ -1,14 +1,10 @@
 import type { Metadata } from 'next'
 import { PrismaClient } from '@prisma/client';
+import ProjectList from '@/components/ProjectList';
 
 export const metadata: Metadata = {
-  title: "Projects",
+  title: "Project list",
 }
-
-const user = {
-  name: "Pablo Juele",
-  avatarLink: "https://res.cloudinary.com/wdpj/image/upload/c_scale,q_auto,w_50/v1638310449/web-design-pablo-juele/mug/wdpj-mug_yuznc7.png",
-};
 
 async function getData() {
 
@@ -41,40 +37,18 @@ async function getData() {
 }
 
 export default async function Page() {
-  const data = await getData();
-  if (!data) {
-    return null;
+  const projects = await getData();
+  if (!projects) {
+    return <div>Loading...</div>;
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div>
-        <h1>Project Doula</h1>
-        <small>Fast and reliable work estimations for freelancers.</small>
-      </div>
-      <div>
-        {data.map((project: any) => {
-          return (
-            <div key={project.id}>
-              <h2>[{project.id}] {project.name}</h2>
-              <div>{project.deliverables.map(
-                (deliverable: any, i:number) => {
-                  return(
-                    <div key={i}>
-                      <h3>{ deliverable.name }</h3>
-                      {deliverable.elements.map(
-                        (element: any, i:number) => {
-                          return(
-                            <div key={i}>{ element.name }</div>
-                          )
-                        }
-                      )}
-                    </div>
-                  )})}
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      <section className="bg-white p-5 shadow rounded-lg">
+        <div>
+          {/* <h2>Your Projects</h2> */}
+          <ProjectList projects={projects}/>
+        </div>
+      </section>
     </main>
   )
 }

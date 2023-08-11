@@ -31,8 +31,8 @@ export default function Component(): ReactElement {
     return(
         <Container maxWidth="sm">
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <Typography sx={{ minWidth: 100 }}>Contact</Typography>
-                <Typography sx={{ minWidth: 100 }}>Profile</Typography>
+                <Typography sx={{ minWidth: 100, color: "white" }}>Project Doula</Typography>
+                {/* <Typography sx={{ minWidth: 100, color: "white" }}>Profile</Typography> */}
                 <Tooltip title="Account settings">
                 <IconButton
                     onClick={handleClick}
