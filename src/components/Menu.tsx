@@ -15,6 +15,7 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import Link from "next/link";
 
 export default function Component(): ReactElement {
 
@@ -31,7 +32,9 @@ export default function Component(): ReactElement {
     return(
         <Container maxWidth="sm">
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <Typography sx={{ minWidth: 100, color: "white" }}>Project Doula</Typography>
+                <Link href="/projects">
+                    <Typography sx={{ minWidth: 100, color: "white" }}>Project Doula</Typography>
+                </Link>
                 {/* <Typography sx={{ minWidth: 100, color: "white" }}>Profile</Typography> */}
                 <Tooltip title="Account settings">
                 <IconButton
