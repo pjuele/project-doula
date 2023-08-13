@@ -2,15 +2,15 @@
 
 import { ReactElement } from "react";
 import DeliverableTree from "./DeliverableTree";
-import { AppDefaults } from "../models/types";
-import { Project } from "@/models/Project";
+import type { Deliverable, Project } from '@prisma/client'
+// import { Project } from "@/models/Project";
 
-export default function Component({ appDefaults, project } : { appDefaults: AppDefaults, project: Project }): ReactElement {
+export default function Component({  project, deliverables } : {  project: Project, deliverables: Deliverable[] }): ReactElement {
     const title = project.name || "ProjectName?";
-    const items = project.deliverables || [{name: "DeliverableName?"}];
+    const items = deliverables || [{name: "DeliverableName?"}];
     return(
         <div>
-            <h2>{title}</h2>
+            {/* <h2>{title}</h2> */}
             <ul>
                 {items.map((d: any, i: number) => 
                     <div key={i}>

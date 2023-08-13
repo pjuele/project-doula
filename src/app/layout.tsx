@@ -1,9 +1,9 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Maven_Pro } from 'next/font/google'
 import Menu from '@/components/Menu';
 
-const inter = Inter({ subsets: ['latin'] })
+const font = Maven_Pro({ weight: '400', subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className + " bg-hero bg-no-repeat bg-cover"}>
+      <body className={font.className + " bg-hero bg-no-repeat bg-cover"}>
         <Menu/>
         {children}
       </body>

@@ -13,17 +13,24 @@ export default function Component({ projects } : { projects: Project[] }): React
     };
     return(
         <div>
-            <div className="w-full pb-5 flex justify-end">
-                <Chip className="" sx={{ bgcolor: pink[500], color: "white" }} label="+ add new"/>
-            </div>
-            <Divider />
-            {/* <Avatar  sx={{ bgcolor: pink[500] }}> */}
-            {/* </Avatar> */}
-            <List dense={true}>
+            <div className="flex flex-row flex-wrap justify-start">
                 {projects.map((d: any, i: number) => 
-                    <ProjectCard key={i} project={d}/>
+                    <ProjectCard key={i} project={d} noLink={false}/>
                 )}
-            </List>
+            </div>
         </div>
+        // <div>
+        //     <div className="w-full pb-5 flex justify-end">
+        //         <Chip className="" sx={{ bgcolor: pink[500], color: "white" }} label="+ add new"/>
+        //     </div>
+        //     <Divider />
+        //     {/* <Avatar  sx={{ bgcolor: pink[500] }}> */}
+        //     {/* </Avatar> */}
+        //     <List dense={true}>
+        //         {projects.map((d: any, i: number) => 
+        //             <ProjectCard key={i} project={d}/>
+        //         )}
+        //     </List>
+        // </div>
     )
 }

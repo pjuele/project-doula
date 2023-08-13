@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { PrismaClient } from '@prisma/client';
+// import { PrismaClient } from '@prisma/client';
+import { prisma } from '../../models/db';
 import ProjectList from '@/components/ProjectList';
 
 export const metadata: Metadata = {
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 
 async function getData() {
 
-  const prisma = new PrismaClient()
+  // const prisma = new PrismaClient()
   try {
     const projects = await prisma.project.findMany(
       {
@@ -45,7 +46,7 @@ export default async function Page() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <section className="bg-white p-5 shadow rounded-lg">
         <div>
-          {/* <h2>Your Projects</h2> */}
+          <h3>Select a project</h3>
           <ProjectList projects={projects}/>
         </div>
       </section>
