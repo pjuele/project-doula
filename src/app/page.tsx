@@ -1,24 +1,64 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
+// 'use client';
 
-export const metadata: Metadata = {
-  title: "Project Doula",
+import * as React from 'react';
+import { auth } from '@clerk/nextjs';
+import HeroUnit from '@/components/HeroUnit';
+import { prisma } from '../models/db';
+import ProjectList from '@/components/ProjectList';
+import { Container } from '@mui/material';
+
+// export const metadata: Metadata = {
+//   title: "Project list",
+// }
+
+async function getData() {
+
+  // const prisma = new PrismaClient()
+  try {
+    const projects = await prisma.project.findMany(
+      {
+        include: {
+          deliverables: {
+            include: {
+              elements: true,
+            },
+          },
+        },
+      }
+    )
+    return projects
+
+  } catch (e) {
+    // console.error(e)
+    console.error('Failed to fetch data', e);
+    return undefined;
+
+  } finally {
+    prisma.$disconnect()
+  }
+
+  // The return value is *not* serialized
+  // You can return Date, Map, Set, etc. 
 }
 
-export default async function Page() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <section className="bg-white p-5 shadow rounded-lg">
-        <div>
-          <h1>Project Doula</h1>
-          <small>Fast and reliable work estimations for freelancers.</small>
-        </div>
-        <div>
-          <Link href="/projects">
-            <button>Projects</button>
-          </Link>
-        </div>
-      </section>
-    </main>
-  )
+export default async function Album() {
+  const { userId } = auth();
+  const signedIn = (!!userId);
+  
+  let projects;
+  if (signedIn) projects = await getData();
+
+  if (signedIn && !projects) {
+    return <div>Loading...</div>;
+  } return (
+      <main>
+        <Container maxWidth="lg">
+        {
+          !signedIn ?
+          <HeroUnit signedIn={signedIn}/> :
+          <ProjectList projects={projects} />
+        }
+        </Container>
+      </main>
+  );
 }
