@@ -6,6 +6,7 @@ import HeroUnit from '@/components/HeroUnit';
 import { prisma } from '../models/db';
 import ProjectList from '@/components/ProjectList';
 import { Container } from '@mui/material';
+import { Project } from '@prisma/client';
 
 // export const metadata: Metadata = {
 //   title: "Project list",
@@ -56,7 +57,7 @@ export default async function Album() {
         {
           !signedIn ?
           <HeroUnit signedIn={signedIn}/> :
-          <ProjectList projects={projects} />
+          <ProjectList projects={projects as Project[]} />
         }
         </Container>
       </main>

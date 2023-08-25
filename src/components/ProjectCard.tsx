@@ -72,17 +72,19 @@ export default function Component({ project, noLink=true } : { project: Project,
     return(
         // <div className="p-5 m-5 flex flex-col justify-center items-start">
             <Paper elevation={2} sx={{ bgcolor: paperColor, color: textColor, width: "12rem" }} className="p-5 mt-3 mr-3 flex flex-col justify-start items-start">
-                <Chip sx={{ bgcolor: chipBackground, color: chipForeground, fontWeight: "bold", marginBottom: "1rem" }} label={nick}/>
-                <Link href={`/projects/${project.id}`}>
+                {/* <Chip sx={{ bgcolor: chipBackground, color: chipForeground, fontWeight: "bold", marginBottom: "1rem" }} label={nick}/> */}
+                <Link
+                    className={`${noLink ? 'pointer-events-none' : 'cursor-pointer'}`}
+                    href={noLink ? '' : `/projects/${project.id}`}
+                    >
                     <h4>
-                        {fullName}
-                        {
-                            noLink ? 
-                            null : 
-                            <IconButton edge="end" aria-label="delete">
-                                <ExitToAppIcon sx={{ color: textColor }}/>
-                            </IconButton>
-                        }
+                    {fullName}
+                    {
+                        !noLink &&
+                        <IconButton edge="end" aria-label="View detail">
+                            <ExitToAppIcon sx={{ color: textColor }}/>
+                        </IconButton>
+                    }
                     </h4>
                 </Link>
             </Paper>

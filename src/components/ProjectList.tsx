@@ -1,4 +1,4 @@
-// 'use client'
+'use client'
 
 import { ReactElement } from "react";
 import type { Project } from '@prisma/client'

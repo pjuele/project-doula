@@ -1,3 +1,5 @@
+'use client';
+
 import { ReactElement } from "react";
 import { Element } from "../models/Element";
 import Button from '@mui/material/Button';

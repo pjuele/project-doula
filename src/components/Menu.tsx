@@ -4,23 +4,17 @@ import { ReactElement, useState, MouseEvent } from "react";
 import { UserButton } from "@clerk/nextjs";
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
-import Link from "next/link";
-import Image from 'next/image';
 import { AppBar, Button, Toolbar } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
+import Link from "next/link";
+import Image from "next/image";
 
-const pages = ['Projects']; //['Products', 'Pricing', 'Blog'];
+const pages = ['Projects', 'About', 'WDPJ']; //['Products', 'Pricing', 'Blog'];
+const links = ['/projects', '/about', ''];
 
 export default function Component(): ReactElement {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -45,8 +39,12 @@ export default function Component(): ReactElement {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar >
-            MAIN PROJECTDOULA
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', marginRight: '2rem' }}>
+            <Link href="/">
+              <Image src="/icon.png" width={40} height={40} alt="logo" />
+            </Link>
+          </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -75,45 +73,38 @@ export default function Component(): ReactElement {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">1{page}</Typography>
+              {pages.map((page, index) => (
+                <MenuItem key={index} onClick={handleCloseNavMenu}>
+                  <Link href={links[index]}>
+                    <Typography textAlign="center">{page}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.01rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            2PROJECTDOULA
-          </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                2{page}
-              </Button>
+            {pages.map((page, index) => (
+              <Link href={links[index]} key={index}>
+                <Button
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page}
+                </Button>
+              </Link>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <UserButton afterSignOutUrl="/"/>
+            <UserButton
+              afterSignOutUrl="/"
+              showName={true}
+              appearance={{
+                elements: {
+                  userButtonAvatarImage: "border-3 border-white rounded-full",
+                  userButtonOuterIdentifier: "text-white text-bold text-uppercase text-lg",
+                }
+              }}
+              />
           </Box>
         </Toolbar>
       </Container>
