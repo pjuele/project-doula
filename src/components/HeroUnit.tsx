@@ -38,7 +38,7 @@ export default function Component({signedIn} : {signedIn : boolean}): ReactEleme
                 signedIn ? 
                 "" :
               <>
-                <Button variant="outlined">Create an account</Button>
+                {/* <Button variant="outlined">Create an account</Button> */}
                 
                 <Button href="/sign-in" variant="outlined">Sign-in</Button>
               </>

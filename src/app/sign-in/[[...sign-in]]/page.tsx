@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image'
 import { SignIn } from "@clerk/nextjs";
 
@@ -11,14 +13,14 @@ export default function Page() {
               width={200}
               height={200}
               alt="Travelog map logo"
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII="
               />
             <h3>Welcome to Project Doula</h3>
             <small>Fast and reliable work estimations for freelancers.</small>
             <p>&copy;2023 Picop Trocs | WDPJ</p>
         </div>
-        <div>
-          <SignIn />
-        </div>
+        <SignIn />
     </main>
   )
 }

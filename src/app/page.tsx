@@ -7,6 +7,7 @@ import { prisma } from '../models/db';
 import ProjectList from '@/components/ProjectList';
 import { Container } from '@mui/material';
 import { Project } from '@prisma/client';
+import Dashboard from '@/components/dashboard/Dashboard';
 
 // export const metadata: Metadata = {
 //   title: "Project list",
@@ -42,7 +43,7 @@ async function getData() {
   // You can return Date, Map, Set, etc. 
 }
 
-export default async function Album() {
+export default async function Page() {
   const { userId } = auth();
   const signedIn = (!!userId);
   
@@ -53,13 +54,14 @@ export default async function Album() {
     return <div>Loading...</div>;
   } return (
       <main>
-        <Container maxWidth="lg">
-        {
-          !signedIn ?
-          <HeroUnit signedIn={signedIn}/> :
-          <ProjectList projects={projects as Project[]} />
-        }
-        </Container>
+        {/* <Container maxWidth="lg"> */}
+          {
+            !signedIn ?
+            <HeroUnit signedIn={signedIn}/> :
+            // <ProjectList projects={projects as Project[]} />
+            <Dashboard projects={projects as Project[]} />
+          }
+          {/* </Container> */}
       </main>
   );
 }
