@@ -4,14 +4,8 @@ import * as React from 'react';
 import { auth } from '@clerk/nextjs';
 import HeroUnit from '@/components/HeroUnit';
 import { prisma } from '../models/db';
-import ProjectList from '@/components/ProjectList';
-import { Container } from '@mui/material';
-import { Project } from '@prisma/client';
 import Dashboard from '@/components/dashboard/Dashboard';
-
-// export const metadata: Metadata = {
-//   title: "Project list",
-// }
+import type { ProjectWithDeliverables } from '../lib/typesWithChildren'
 
 async function getData() {
 
@@ -54,14 +48,12 @@ export default async function Page() {
     return <div>Loading...</div>;
   } return (
       <main>
-        {/* <Container maxWidth="lg"> */}
-          {
-            !signedIn ?
-            <HeroUnit signedIn={signedIn}/> :
-            // <ProjectList projects={projects as Project[]} />
-            <Dashboard projects={projects as Project[]} />
-          }
-          {/* </Container> */}
+        {
+          !signedIn ?
+          <HeroUnit signedIn={signedIn}/> :
+          // <ProjectList projects={projects as Project[]} />
+          <Dashboard projects={projects as ProjectWithDeliverables[]} />
+        }
       </main>
   );
 }

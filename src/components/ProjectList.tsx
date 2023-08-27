@@ -1,36 +1,40 @@
 'use client'
 
 import { ReactElement } from "react";
-import type { Project } from '@prisma/client'
-import ProjectCard from "./ProjectCard";
-import { List, Avatar, Chip, Divider } from "@mui/material";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { pink } from "@mui/material/colors";
+import type { Deliverable } from '@prisma/client'
+import type { ProjectWithDeliverables } from '../lib/typesWithChildren'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+// import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { TreeItem, TreeView } from "@mui/lab";
+import { Box, Divider } from "@mui/material";
 
-export default function Component({ projects } : { projects: Project[] }): ReactElement {
+
+export default function Component({ projects } : { projects: ProjectWithDeliverables[] }): ReactElement {
     if (!projects) {
         return <div>Loading...</div>;
     };
     return(
-        <div>
-            <div className="flex flex-row flex-wrap justify-start">
-                {projects.map((d: any, i: number) => 
-                    <ProjectCard key={i} project={d} noLink={false}/>
+        <TreeView
+            aria-label="project contents navigator"
+            defaultCollapseIcon={<ExpandMoreIcon />}
+            defaultExpandIcon={<ChevronRightIcon />}
+            sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
+            >
+                {projects.map((p: ProjectWithDeliverables, i: number) => {
+                    const deliverables: Deliverable[] = p.deliverables;
+                    return(
+                    <TreeItem key={i} nodeId={i.toString()} label={p.name} sx={{padding: "0.2rem"}}>
+                        <Box sx={{ flexGrow: 1, borderRadius: '3px', border: '1px solid #f0f0f0', marginTop: '0.4rem', backgroundColor: '#fefefe' }}>
+                            <TreeItem nodeId={i.toString() + "-add"} label={"+ add new"} sx={{ color: 'tomato', fontWeight: 'bold' }}/>
+                            <Divider />
+                            {deliverables.map((d: Deliverable, j: number) => 
+                                <TreeItem key={j} nodeId={i.toString() + "-" + j.toString()} label={d.name} />
+                            )}
+                        </Box>
+                    </TreeItem>
                 )}
-            </div>
-        </div>
-        // <div>
-        //     <div className="w-full pb-5 flex justify-end">
-        //         <Chip className="" sx={{ bgcolor: pink[500], color: "white" }} label="+ add new"/>
-        //     </div>
-        //     <Divider />
-        //     {/* <Avatar  sx={{ bgcolor: pink[500] }}> */}
-        //     {/* </Avatar> */}
-        //     <List dense={true}>
-        //         {projects.map((d: any, i: number) => 
-        //             <ProjectCard key={i} project={d}/>
-        //         )}
-        //     </List>
-        // </div>
+                )}
+        </TreeView>
     )
 }

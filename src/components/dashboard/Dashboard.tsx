@@ -6,7 +6,6 @@ import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -18,19 +17,129 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
-import { Project } from '@prisma/client';
 import ProjectList from '../ProjectList';
+import type { ProjectWithDeliverables } from '../../lib/typesWithChildren'
+
+// import * as React from 'react';
+// import TreeView from '@mui/lab/TreeView';
+// import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+// import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+// import TreeItem, {
+//   TreeItemProps,
+//   useTreeItem,
+//   TreeItemContentProps,
+// } from '@mui/lab/TreeItem';
+// import clsx from 'clsx';
+// import Typography from '@mui/material/Typography';
+
+// const CustomContent = React.forwardRef(function CustomContent(
+//   props: TreeItemContentProps,
+//   ref,
+// ) {
+//   const {
+//     classes,
+//     className,
+//     label,
+//     nodeId,
+//     icon: iconProp,
+//     expansionIcon,
+//     displayIcon,
+//   } = props;
+
+//   const {
+//     disabled,
+//     expanded,
+//     selected,
+//     focused,
+//     handleExpansion,
+//     handleSelection,
+//     preventSelection,
+//   } = useTreeItem(nodeId);
+
+//   const icon = iconProp || expansionIcon || displayIcon;
+
+//   const handleMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+//     preventSelection(event);
+//   };
+
+//   const handleExpansionClick = (
+//     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+//   ) => {
+//     handleExpansion(event);
+//   };
+
+//   const handleSelectionClick = (
+//     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+//   ) => {
+//     handleSelection(event);
+//   };
+
+//   return (
+//     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+//     <div
+//       className={clsx(className, classes.root, {
+//         [classes.expanded]: expanded,
+//         [classes.selected]: selected,
+//         [classes.focused]: focused,
+//         [classes.disabled]: disabled,
+//       })}
+//       onMouseDown={handleMouseDown}
+//       ref={ref as React.Ref<HTMLDivElement>}
+//     >
+//       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+//       <div onClick={handleExpansionClick} className={classes.iconContainer}>
+//         {icon}
+//       </div>
+//       <Typography
+//         onClick={handleSelectionClick}
+//         component="div"
+//         className={classes.label}
+//       >
+//         {label}
+//       </Typography>
+//     </div>
+//   );
+// });
+
+// function CustomTreeItem(props: TreeItemProps) {
+//   return <TreeItem ContentComponent={CustomContent} {...props} />;
+// }
+
+// export default function IconExpansionTreeView() {
+//   return (
+//     <TreeView
+//       aria-label="icon expansion"
+//       defaultCollapseIcon={<ExpandMoreIcon />}
+//       defaultExpandIcon={<ChevronRightIcon />}
+//       sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
+//     >
+//       <CustomTreeItem nodeId="1" label="Applications">
+//         <CustomTreeItem nodeId="2" label="Calendar" />
+//         <CustomTreeItem nodeId="3" label="Chrome" />
+//         <CustomTreeItem nodeId="4" label="Webstorm" />
+//       </CustomTreeItem>
+//       <CustomTreeItem nodeId="5" label="Documents">
+//         <CustomTreeItem nodeId="10" label="OSS" />
+//         <CustomTreeItem nodeId="6" label="MUI">
+//           <CustomTreeItem nodeId="7" label="src">
+//             <CustomTreeItem nodeId="8" label="index.js" />
+//             <CustomTreeItem nodeId="9" label="tree-view.js" />
+//           </CustomTreeItem>
+//         </CustomTreeItem>
+//       </CustomTreeItem>
+//     </TreeView>
+//   );
+// }
 
 function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://pablojuele.com/">
+        Web Design Pablo Juele
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -92,7 +201,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard(
-  { projects } : { projects: Project[] }
+  { projects } : { projects: ProjectWithDeliverables[] }
 ): React.ReactElement {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -152,11 +261,6 @@ export default function Dashboard(
           </Toolbar>
           <Divider />
           <ProjectList projects={projects} />
-          {/* <List component="nav">
-            {mainListItems}
-            <Divider sx={{ my: 1 }} />
-            {projectsListItems}
-          </List> */}
         </Drawer>
         <Box
           component="main"
