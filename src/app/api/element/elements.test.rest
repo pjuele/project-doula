@@ -1,0 +1,26 @@
+###
+GET http://localhost:3000/api/element
+content-type: application/json
+
+###
+GET http://localhost:3000/api/element/1
+content-type: application/json
+
+###
+GET http://localhost:3000/api/element/4
+content-type: application/json
+
+###
+POST http://localhost:3000/api/element
+content-type: application/json
+
+{
+    "name": "An Element",
+    "assignedToId": 1,
+    "userId": 1,
+    "deliverableId": 1
+}
+
+###
+DELETE http://localhost:3000/api/element/10
+content-type: application/json

@@ -33,7 +33,7 @@ export async function DELETE(
   const id = parseInt(params.id);
   // TODO: TRY CATCH, and WHAT IF id is NaN?
   // TODO: What if ID not found?
-  const deletedProject = await prisma.project.delete({
+  const deletedProject: Project = await prisma.project.delete({
     where: {
       id,
       // },

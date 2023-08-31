@@ -22,6 +22,7 @@ model Project {
   deliverables Deliverable[]
 }
 
+// TODO: turn this into a users table. Users that haven't signed-up cannot be assigned tasks (simplify and avoid maintaining both a users table and a team members table)
 model TeamMember {
   id               Int       @id @default(autoincrement())
   name             String?   @db.VarChar(255)
@@ -32,9 +33,10 @@ model Element {
   id            Int         @id @default(autoincrement())
   name          String      @db.VarChar(255)
   hours         Int?
-  userId        Int         @unique
+  // TODO: Figure userId out. I don't have a user table in prisma/neon. Perhaps that's what sign-up does?
+  // userId        Int         @unique
   deliverableId Int
-  assignedToId  Int
-  assignedTo    TeamMember  @relation(fields: [assignedToId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  assignedToId  Int?
+  assignedTo    TeamMember?  @relation(fields: [assignedToId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   parent        Deliverable @relation(fields: [deliverableId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
