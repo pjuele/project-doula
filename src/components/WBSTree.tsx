@@ -10,7 +10,7 @@ export default function Component({  project, deliverables } : {  project: Proje
     const items = deliverables || [{name: "DeliverableName?"}];
     return(
         <div>
-            {/* <h2>{title}</h2> */}
+            <h2>{title}</h2>
             <ul>
                 {items.map((d: any, i: number) => 
                     <div key={i}>

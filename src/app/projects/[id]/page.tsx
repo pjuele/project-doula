@@ -10,14 +10,14 @@ export const metadata: Metadata = {
   title: `Project Detail`,
 }
 
-async function getData(projectId: number) {
+async function getData(projectId: string) {
 
   // const prisma = new PrismaClient()
   try {
     const project = await prisma.project.findUnique(
       {
         where: {
-          id: projectId,
+          id: projectId.substring(0,3),
         },
         include: {
           deliverables: {
@@ -28,6 +28,7 @@ async function getData(projectId: number) {
         },
       }
     )
+    console.dir(project);
     return project
 
   } catch (e) {
@@ -44,17 +45,15 @@ async function getData(projectId: number) {
 }
 
 export default async function Page({ params } : { params: { id: string } }) {
-  const project = await getData(parseInt(params.id));
+  console.log("Loading project", params.id);
+  const project = await getData(params.id);
   if (!project) {
     return null;
   }
   return (
     <main className="flex min-h-screen flex-row flex-wrap items-start justify-center mr-5 mt-5">
-      <ProjectCard project={project}/>
-      <Paper elevation={2} sx={{ bgcolor: "#f8f8f8", color: "#555", width: "12rem" }} className="p-5 mt-3 mr-3 flex flex-col justify-start items-start">
-        {/* <div>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio quas natus fuga sed ipsa, reiciendis aut odio quia veritatis porro possimus. Explicabo in illum numquam libero iste, aliquam impedit accusamus?
-        </div> */}
+      {/* <ProjectCard project={project}/> */}
+      <Paper elevation={2} sx={{ bgcolor: "#f8f8f8", color: "#555", width: "90vw" }} className="p-5 mt-3 mr-3 flex flex-col justify-start items-start">
         <WBSTree project={project} deliverables={project.deliverables}/>
      </Paper>
     </main>

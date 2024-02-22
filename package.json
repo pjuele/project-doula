@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate deploy",
+    "prisma:push": "prisma db push",
+    "prisma:studio": "prisma studio",
+    "prisma:seed": "cd ./prisma && node seed.js"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.23.2",
@@ -15,7 +20,7 @@
     "@mui/icons-material": "^5.14.0",
     "@mui/lab": "^5.0.0-alpha.136",
     "@mui/material": "^5.14.0",
-    "@prisma/client": "^5.1.1",
+    "@prisma/client": "^5.10.2",
     "@types/node": "20.4.1",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
@@ -31,6 +36,6 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "prisma": "^5.1.1"
+    "prisma": "^5.10.2"
   }
 }
